@@ -48,36 +48,62 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+
 }));
 
 export default function App() {
-  const [file, setFile] = useState(''); // storing the uploaded file
+    let alertText = document.getElementById('alert');
+    if(alertText){
+      alertText.style.visibility ="hidden";
+    } 
+    const [file, setFile] = useState(''); // storing the uploaded file
     // storing the recived file from backend
     const [data, getFile] = useState({ name: "", path: "" });
     const [progress, setProgess] = useState(0); // progess bar
     const el = useRef(); // accesing input element
-
+    const fileValidation = () => { 
+      var fileInput =  
+          document.getElementById('upload_gltf'); 
+        
+      var filePath = fileInput.value; 
+    
+      // Allowing file type 
+      var allowedExtensions =  
+              /(\.zip)$/i; 
+        
+      if (!allowedExtensions.exec(filePath)) { 
+          alert('Please select file with a .zip extension!'); 
+          fileInput.value = ''; 
+          return false; 
+      } 
+  } 
     const handleChange = (e) => {
         setProgess(0)
         const file = e.target.files[0]; // accessing file
         console.log(file);
         setFile(file); // storing file
+        //File validation//
+        fileValidation();
     }
 
     const uploadFile = () => {
         const formData = new FormData();
         formData.append('file', file); // appending file
         axios.post('http://localhost:4500/upload', formData, {
-            onUploadProgress: (ProgressEvent) => {
-                let progress = Math.round(
-                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-                setProgess(progress);
-            }
+            // onUploadProgress: (ProgressEvent) => {
+            //     let progress = Math.round(
+            //     ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+            //     setProgess(progress);
+            // }
         }).then(res => {
-            console.log(res);
-            getFile({ name: res.data.name,
-                     path: 'http://localhost:4500' + res.data.path
-                   })
+            if(res.data.msg != ""){
+              document.getElementById('alert').style.visibility ="visible";
+              document.getElementById('alert').innerHTML = res.data.msg;
+              //// axios.post('http://localhost:4500/convert', formData, {
+
+              // });
+
+            }
         }).catch(err => console.log(err))}
       const classes = useStyles();
   return (
@@ -112,10 +138,15 @@ export default function App() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              id="upload"
               onClick = {uploadFile}
+              
             >
               Upload
             </Button>
+            <Box mt={5}>
+              <a id="alert" style={{visibility:"hidden", color:"red"}}></a>
+            </Box>
             <Box mt={5}>
               <Copyright />
             </Box>

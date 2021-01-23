@@ -3,7 +3,8 @@ const fileUpload = require('express-fileupload');
 const cors = require('cors')
 const {PythonShell} =require('python-shell'); 
 const app = express();
-
+const fs = require('fs');
+const { exec } = require("child_process");
 const runPythonScript = () => {
     let options = { 
         mode: 'text', 
@@ -12,23 +13,14 @@ const runPythonScript = () => {
         // args: ['shubhamk314'] //An argument which can be accessed in the script using sys.argv[1] 
     }; 
       
-  
-    // PythonShell.run('index.py', options, function (err, result){ 
-    //       if (err) throw err; 
-    //       // result is an array consisting of messages collected  
-    //       //during execution of script. 
-    //       console.log('result: ', result.toString()); 
-    //     //   res.send(result.toString())
-    //     return
-    // }); 
-    PythonShell.run("usd_from_gltf /gltf/x.gltf /usdz/x.usdz", options, function (err, result){ 
-              if (err) throw err; 
-              // result is an array consisting of messages collected  
-              //during execution of script. 
-              console.log('result: ', result.toString()); 
-            //   res.send(result.toString())
-            return
-        }); 
+        PythonShell.run("pyScript.py", options, function (err, result){ 
+            if (err) throw err; 
+            // result is an array consisting of messages collected  
+            //during execution of script. 
+            console.log('result: ', result.toString()); 
+          //   res.send(result.toString())
+          return
+      }); 
 }
 // middle ware
 app.use(express.static('public')); //to access the files in public folder
@@ -41,18 +33,34 @@ app.post('/upload', (req, res) => {
     }
         // accessing the file
     const myFile = req.files.file;
-    //  mv() method places the file inside public directory
-    myFile.mv(`${__dirname}/gltf/${myFile.name}`, function (err) {
-        if (err) {
-            console.log(err)
-            return res.status(500).send({ msg: "Error occured" });
-        }
-        // returing the response with file path and name
-        console.log("uploaded...running python script");
-        runPythonScript();
-        return res.send({name: myFile.name, path: `/${myFile.name}`}).status(200);
-    });
-})
+    // console.log(myFile.name.split('.')[0])
+    if (fs.existsSync('./gltf/'+myFile.name.split('.')[0])) {
+        return res.status(200).send({msg:"Selected file already exists on server. Try upload new file!"});
+    }else{
+            //  mv() method places the file inside public directory
+        myFile.mv(`${__dirname}/gltf/${myFile.name}`, function (err) {
+            if (err) {
+                console.log(err)
+                return res.status(500).send({ msg: "Error occured" });
+            }
+            runPythonScript();
+            exec("ls -la", (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`);
+                    return;
+                }
+                if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    return;
+                }
+                console.log(`stdout: ${stdout}`);
+            });
+            return res.send({name: myFile.name, path: `/${myFile.name}`,msg : "File has been converted successfuly!"}).status(200);
+        });
+    }
+    
+});
+
 app.listen(4500, () => {
     console.log('server is running at port 4500');
 })
