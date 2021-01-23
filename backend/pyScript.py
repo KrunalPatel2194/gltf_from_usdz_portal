@@ -1,7 +1,11 @@
 import os
 import zipfile
-from subprocess import call
+import subprocess
 
+
+
+list_files = subprocess.run(["ls", "-l"])
+print("The exit code was: %d" % list_files.returncode)
 zip_dir = "./gltf";
 for subdir, dirs, files in os.walk(zip_dir):
     for zipp in files:
@@ -14,6 +18,3 @@ for subdir, dirs, files in os.walk(zip_dir):
         zip_ref.close();
         os.remove(zip_dir+"/"+old_file_name);
         print("files extracted and .zip file deleted successfuly");
-
-call("print('krunal')")
-
