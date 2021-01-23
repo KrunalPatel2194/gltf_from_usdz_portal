@@ -44,7 +44,8 @@ app.post('/upload', (req, res) => {
                 return res.status(500).send({ msg: "Error occured" });
             }
             runPythonScript();
-            exec("ls -la", (error, stdout, stderr) => {
+            let source_file_name = myFile.name.split('.')[0].split(" ").join("_");
+            exec("usd_from_gltf /gltf/", (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;
