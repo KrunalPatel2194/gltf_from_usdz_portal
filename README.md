@@ -1,4 +1,4 @@
-# USD from glTF converter
+# USD from glTF converter web portal
 
 Universal USD from glTF converter portal leverages the Library, command-line tool, and import plugin for converting [glTF](https://www.khronos.org/gltf/) models to [USD] (https://graphics.pixar.com/usd/docs/index.html) formatted assets for display in [AR Quick Look](https://developer.apple.com/arkit/gallery).
 
@@ -45,7 +45,7 @@ Requires to go through several different steps as below:
         *   run -> npm install & node index.js
     *   change directory to backend (/cd backend) in a seperate terminal.
         * run ->  npm install & npm start.
-        
+    
 ## Using the Portal
 
 *   Select valid glTF file in a .zip format.
