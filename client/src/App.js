@@ -13,6 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Animate from './components/animate/index';
+import AddIcon from '@material-ui/icons/CloudDownload';
+import Fab from '@material-ui/core/Fab';
 import logo from './assets/logo.png';
 import axios from  'axios';
 function Copyright() {
@@ -48,7 +50,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-
+  input: {
+    display: 'none',
+  },
 }));
 
 export default function App() {
@@ -107,9 +111,10 @@ export default function App() {
         }).catch(err => console.log(err))}
       const classes = useStyles();
   return (
+    
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={1} md={3} style={{backgroundColor:"#000 !important"}} >
+      <Grid item xs={false} sm={4} md={7} style={{ backgroundImage :"url('https://wallpapercave.com/wp/wp2570978.png')"}} >
         {/* <Animate/> */}
         </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -119,7 +124,7 @@ export default function App() {
             NextTech AR
           </Typography> */}
           {/* <form className={classes.form} noValidate > */}
-            <TextField
+            <input
               variant="outlined"
               margin="normal"
               required
@@ -127,11 +132,16 @@ export default function App() {
               id="upload_gltf"
               label="Upload GLTF"
               name="upload_gltf"
-              autoFocus
+              className = {classes.input}
               type="file"
               onChange={handleChange}
+              autoFocus
             />
-            
+            <label htmlFor="upload_gltf">
+              <Button variant="contained" color="secondary" component="span">
+                Select GLTF
+              </Button>
+            </label>
             <Button
               type="submit"
               fullWidth
@@ -142,16 +152,23 @@ export default function App() {
               onClick = {uploadFile}
               
             >
-              Upload
+              Upload & Convert
             </Button>
             <Box mt={5}>
               <a id="alert" style={{visibility:"hidden", color:"red"}}></a>
             </Box>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
+            
           {/* </form> */}
         </div>
+        <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square style={{backgroundColor:"#fff",padding:"20px"}}>
+        Converted files are ready for download. Click on a download button to download USD files.
+        <Fab color="secondary" aria-label="add" style={{marginLeft:"10px"}}>
+          <AddIcon />
+        </Fab>
+        </Grid>
+        <Box mt={5}>
+              <Copyright />
+            </Box>
       </Grid>
     </Grid>
   );
