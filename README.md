@@ -40,7 +40,12 @@ Requires to go through several different steps as below:
 *   *(Optional)* Build test data. See ufginstall script output for the ufgtest.py command.
 *   *(Optional)* Set `PXR_PLUGINPATH_NAME` so the glTF import plugin is available in Usdview. See ufginstall script output for the path.
 
-
+*   3)  Download portal repository from (https://github.com/KrunalPatel2194/gltf_from_usdz_portal).
+    *   change directory to client (/cd client) in seperate terminal.
+        *   run -> npm install & node index.js
+    *   change directory to backend (/cd backend) in a seperate terminal.
+        * run ->  npm install & npm start.
+        
 ## Using the Portal
 
 *   Select valid glTF file in a .zip format.
