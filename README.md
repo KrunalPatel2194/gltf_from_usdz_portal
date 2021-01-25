@@ -2,9 +2,6 @@
 
 Universal USD from glTF converter portal leverages the Library, command-line tool, and import plugin for converting [glTF](https://www.khronos.org/gltf/) models to [USD] (https://graphics.pixar.com/usd/docs/index.html) formatted assets for display in [AR Quick Look](https://developer.apple.com/arkit/gallery).
 
-
-TLDR: [Install](#installation-steps) it, then [convert](#using-the-command-line-tool) with: `usd_from_gltf <source.gltf> <destination.usdz>`
-
 ## Background
 Converter portal is a web page facilitating conversion for the glTF models to USD models on the fly.
 
