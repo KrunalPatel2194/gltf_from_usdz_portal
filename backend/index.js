@@ -61,9 +61,9 @@ app.post('/upload', (req, res) => {
                 return res.status(500).send({ msg: "Error occured" });
             }
             runPythonScript();
-            let source_file_name = myFile.name.split('.')[0].split(" ").join("_");
+            //let source_file_name = myFile.name.split('.')[0].split(" ").join("_");
             // fs.mkdirSync(`usdz/${source_file_name}`, { recursive: true });
-            exec(`usd_from_gltf gltf/${source_file_name}/Main.gltf usdz/${source_file_name}/Main.usdz`, (error, stdout, stderr) => {
+            exec(`usd_from_gltf gltf/Main.gltf usdz/Main.usdz`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;
