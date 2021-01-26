@@ -63,7 +63,18 @@ app.post('/upload', (req, res) => {
             runPythonScript();
             let source_file_name = myFile.name.split('.')[0].split(" ").join("_");
             fs.mkdirSync(`usdz/${source_file_name}`, { recursive: true });
-            exec(`usd_from_gltf gltf/${source_file_name}/Main.gltf usdz/${source_file_name}/Main.usdz`, (error, stdout, stderr) => {
+            // exec(`usd_from_gltf gltf/${source_file_name}/Main.gltf usdz/${source_file_name}/Main.usdz`, (error, stdout, stderr) => {
+            //     if (error) {
+            //         console.log(`error: ${error.message}`);
+            //         return;
+            //     }
+            //     if (stderr) {
+            //         console.log(`stderr: ${stderr}`);
+            //         return;
+            //     }
+            //     console.log(`stdout: ${stdout}`);
+            // });
+            exec(`usd_from_gltf gltf/Main.gltf usdz/Main.usdz`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;
