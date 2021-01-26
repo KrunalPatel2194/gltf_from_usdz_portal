@@ -8,8 +8,9 @@ for subdir, dirs, files in os.walk(zip_dir):
         file_name = "_".join(file_name);
         filepath= os.path.join(subdir, zipp);
         zip_ref = zipfile.ZipFile(filepath, 'r')
-        os.mkdir(zip_dir+"/"+file_name);
-        zip_ref.extractall(zip_dir+"/"+file_name);
+        # os.mkdir(zip_dir+"/"+file_name);
+        zip_ref.extractall(zip_dir);
+        # zip_ref.extractall(zip_dir+"/"+file_name);        
         zip_ref.close();
         os.remove(zip_dir+"/"+old_file_name);
         print("files extracted and .zip file deleted successfuly");
