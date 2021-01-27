@@ -65,7 +65,7 @@ app.post('/upload', (req, res) => {
             fs.mkdirSync(`usdz/${source_file_name}`, { recursive: true });
             
             const py_shell_script = () => {
-                    exec(`usd_from_gltf gltf/${source_file_name}/Main.gltf usdz/${source_file_name}/Main.usdz`, (error, stdout, stderr) => {
+                    exec(`usd_from_gltf gltf/Main.gltf usdz/Main.usdz`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         return;
