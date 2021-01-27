@@ -75,7 +75,7 @@ app.post('/upload', (req, res) => {
                 console.log(`stdout: ${stdout}`);
             });
             //Zipping usdz files for a download
-            zipContent(source_file_name);
+            //zipContent(source_file_name);
             return res.send({name: myFile.name, path: `/${myFile.name}`,msg : "File has been converted successfuly!"}).status(200);
         });
     }
