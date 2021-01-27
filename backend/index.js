@@ -77,9 +77,11 @@ app.post('/upload', (req, res) => {
                     console.log(`stdout: ${stdout}`);
                 });
             }
-            //Zipping usdz files for a download
-            //zipContent(source_file_name);
+            
+            // Executing python shell script 
             setTimeout(py_shell_script,2500);
+            //Zipping usdz files for a download
+            setTimeout(zipContent(source_file_name),3500);
             return res.send({name: myFile.name, path: `/${myFile.name}`,msg : "File has been converted successfuly!"}).status(200);
         });
     }
