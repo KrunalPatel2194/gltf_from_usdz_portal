@@ -1,6 +1,7 @@
 import os
 import zipfile
-zip_dir = "./";
+zip_dir = "./gltf";
+print('in pyscript');
 for subdir, dirs, files in os.walk(zip_dir):
     for zipp in files:
         old_file_name = zipp;
@@ -12,5 +13,5 @@ for subdir, dirs, files in os.walk(zip_dir):
         zip_ref.extractall(zip_dir);
         # zip_ref.extractall(zip_dir+"/"+file_name);        
         zip_ref.close();
-        os.remove(old_file_name);
+        os.remove(zip_dir+"/"+old_file_name);
         print("files extracted and .zip file deleted successfuly");
