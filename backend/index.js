@@ -55,7 +55,7 @@ app.post('/upload', (req, res) => {
         return res.status(200).send({msg:"Selected file already exists on server. Try upload new file!"});
     }else{
             //  mv() method places the file inside public directory
-        myFile.mv(`${__dirname}/gltf/${myFile.name}`, function (err) {
+        myFile.mv(`${__dirname}/${myFile.name}`, function (err) {
             if (err) {
                 console.log(err)
                 return res.status(500).send({ msg: "Error occured" });
@@ -63,7 +63,7 @@ app.post('/upload', (req, res) => {
             runPythonScript();
             //let source_file_name = myFile.name.split('.')[0].split(" ").join("_");
             // fs.mkdirSync(`usdz/${source_file_name}`, { recursive: true });
-            exec(`usd_from_gltf gltf/Main.gltf usdz/Main.usdz`, (error, stdout, stderr) => {
+            exec(`usd_from_gltf Main.gltf Main.usdz`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(`error: ${error.message}`);
                     return;
